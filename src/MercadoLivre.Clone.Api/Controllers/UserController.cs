@@ -20,9 +20,9 @@ public class UserController : ControllerBase
 
     [HttpPost]
     // 1
-    public async Task<ActionResult> Create(UserViewModel userDto)
+    public async Task<ActionResult> Create(UserViewModel userViewModel)
     {
-        var result = await _userManager.CreateAsync(userDto.ToModel(), userDto.Password);
+        var result = await _userManager.CreateAsync(userViewModel.ToModel(), userViewModel.Password);
 
         // 1
         if (result.Succeeded)
