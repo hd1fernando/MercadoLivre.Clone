@@ -2,6 +2,8 @@ using MercadoLivre.Clone.Api.Indentity.Db;
 using MercadoLivre.Clone.Api.Indentity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+// CI: 3
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,14 +12,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// 1
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(
     options => options.UseSqlServer(connectionString));
 
+// 1
 builder.Services.AddDefaultIdentity<IdentityUserEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityUserMercadoLivreContext>()
     .AddDefaultTokenProviders();
 
+// 1
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = true;
@@ -25,8 +30,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireNonAlphanumeric = true;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
-
-
 
 });
 

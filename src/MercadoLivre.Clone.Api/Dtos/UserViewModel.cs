@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MercadoLivre.Clone.Api.Dtos
 {
+    // CI: 1
     public class UserViewModel
     {
         [Required(ErrorMessage = "{0} é obrigatório.")]
@@ -19,14 +20,10 @@ namespace MercadoLivre.Clone.Api.Dtos
         public string? RepeatedPassword { get; set; }
 
         public IdentityUserEntity ToModel()
-            => new IdentityUserEntity
-            {
-                Email = Login,
-                NormalizedEmail = Login.ToUpper(),
-                UserName = Login,
-                NormalizedUserName = Login.ToUpper(),
-                RegistrationTime = DateTimeOffset.UtcNow,
-                EmailConfirmed = true,
-            };
+            => new IdentityUserEntity(
+                Login,
+                Login,
+                DateTimeOffset.UtcNow);
+
     }
 }
