@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoLivre.Clone.Api", "src\MercadoLivre.Clone.Api\MercadoLivre.Clone.Api.csproj", "{9E2CACCB-E546-436A-A3D0-363BF3E48DE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MercadoLivre.Clone.Api", "src\MercadoLivre.Clone.Api\MercadoLivre.Clone.Api.csproj", "{9E2CACCB-E546-436A-A3D0-363BF3E48DE8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9116AA71-4E12-49E5-93C8-6FE312A91F20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoLivre.Clone.Api.Test", "test\MercadoLivre.Clone.Api.Test\MercadoLivre.Clone.Api.Test.csproj", "{F0ABB2ED-7BF2-4041-B1C4-E58A3345B760}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{9E2CACCB-E546-436A-A3D0-363BF3E48DE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E2CACCB-E546-436A-A3D0-363BF3E48DE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E2CACCB-E546-436A-A3D0-363BF3E48DE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0ABB2ED-7BF2-4041-B1C4-E58A3345B760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0ABB2ED-7BF2-4041-B1C4-E58A3345B760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0ABB2ED-7BF2-4041-B1C4-E58A3345B760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0ABB2ED-7BF2-4041-B1C4-E58A3345B760}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F0ABB2ED-7BF2-4041-B1C4-E58A3345B760} = {9116AA71-4E12-49E5-93C8-6FE312A91F20}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D047F39F-CA28-48A2-A289-EB3F822F65F9}
