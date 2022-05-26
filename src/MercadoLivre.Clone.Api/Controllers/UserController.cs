@@ -1,4 +1,6 @@
 using MercadoLivre.Clone.Api.Dtos;
+using MercadoLivre.Clone.Api.Indentity.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
@@ -7,10 +9,21 @@ namespace MercadoLivre.Clone.Api.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    [HttpPost]
-    public async Task<ActionResult> Create(UserDto userDto)
-    {
+    private readonly UserManager<IdentityUserEntity> _userManager;
 
-        return Ok();
+    public UserController(UserManager<IdentityUserEntity> userManager)
+    {
+        _userManager = userManager;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Create(UserViewModel userDto)
+    {
+        var result = await _userManager.CreateAsync(userDto.ToModel(), userDto.Password);
+
+        if (result.Succeeded)
+            return Ok();
+
+        return BadRequest(result.Errors);
     }
 }
