@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
 
+// CI: 3
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
+    // 1
     private readonly UserManager<IdentityUserEntity> _userManager;
 
     public UserController(UserManager<IdentityUserEntity> userManager)
@@ -17,10 +19,12 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    // 1
     public async Task<ActionResult> Create(UserViewModel userDto)
     {
         var result = await _userManager.CreateAsync(userDto.ToModel(), userDto.Password);
 
+        // 1
         if (result.Succeeded)
             return Ok();
 

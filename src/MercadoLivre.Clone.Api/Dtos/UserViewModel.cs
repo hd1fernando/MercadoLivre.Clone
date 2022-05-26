@@ -21,8 +21,8 @@ namespace MercadoLivre.Clone.Api.Dtos
 
         public IdentityUserEntity ToModel()
             => new IdentityUserEntity(
-                Login,
-                Login,
+                Login ?? throw new ArgumentNullException($"{nameof(Login)} não pode ser nulo"),
+                Login ?? throw new ArgumentNullException($"{nameof(Login)} não pode ser nulo"),
                 DateTimeOffset.UtcNow);
 
     }
