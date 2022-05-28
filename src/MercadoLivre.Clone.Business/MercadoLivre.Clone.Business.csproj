@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entitties\" />
-    <Folder Include="Commands\" />
     <Folder Include="CommandHandlers\" />
+    <Folder Include="Repository\" />
   </ItemGroup>
 
   <ItemGroup>

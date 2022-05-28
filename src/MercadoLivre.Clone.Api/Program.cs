@@ -1,7 +1,9 @@
+using MediatR;
 using MercadoLivre.Clone.Api.Indentity.Db;
 using MercadoLivre.Clone.Api.Indentity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 // CI: 3
 
 
@@ -12,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 // 1
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(
     options => options.UseSqlServer(connectionString));
