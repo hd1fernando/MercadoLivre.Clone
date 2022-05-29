@@ -1,6 +1,7 @@
 using MediatR;
 using MercadoLivre.Clone.Api.Indentity.Db;
 using MercadoLivre.Clone.Api.Indentity.Entities;
+using MercadoLivre.Clone.Business.Commands;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -15,11 +16,13 @@ builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+builder.Services.AddMediatR(typeof(CommandBase).GetTypeInfo().Assembly);
+builder.Services.AddAutoMapper(typeof(Program));
 
 // 1
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(
     options => options.UseSqlServer(connectionString));
+
 
 // 2
 builder.Services.AddDefaultIdentity<IdentityUserEntity>()

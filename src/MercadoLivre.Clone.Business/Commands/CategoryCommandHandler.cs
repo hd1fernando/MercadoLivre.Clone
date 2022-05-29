@@ -6,7 +6,7 @@ namespace MercadoLivre.Clone.Business.Commands
     {
         public Task<Unit> Handle(CategoryCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("validado");
         }
     }
 }
