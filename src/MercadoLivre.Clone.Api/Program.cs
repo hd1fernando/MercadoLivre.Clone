@@ -4,7 +4,7 @@ using MercadoLivre.Clone.Api.Indentity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-// CI: 3
+// CI: 5
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +21,7 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(
     options => options.UseSqlServer(connectionString));
 
-// 1
+// 2
 builder.Services.AddDefaultIdentity<IdentityUserEntity>()
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityUserMercadoLivreContext>()
@@ -45,6 +45,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+// 1
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
