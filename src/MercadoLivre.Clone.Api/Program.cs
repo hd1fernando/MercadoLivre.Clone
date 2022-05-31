@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using MercadoLivre.Clone.Api.Extensions;
 using MercadoLivre.Clone.Api.Indentity.Db;
 using MercadoLivre.Clone.Api.Indentity.Entities;
 using MercadoLivre.Clone.Business.Commands;
@@ -7,7 +8,7 @@ using MercadoLivre.Clone.Business.PipelineBehaviors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-// CI: 6
+// CI: 7
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,9 +26,11 @@ builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 // 1
+builder.Services.AddNHibernate(connectionString);
+
+// 1
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(
     options => options.UseSqlServer(connectionString));
-
 
 // 2
 builder.Services.AddDefaultIdentity<IdentityUserEntity>()
