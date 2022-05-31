@@ -1,9 +1,8 @@
 ﻿namespace MercadoLivre.Clone.Business.Entitties
 {
-    public class CategoryEntity
+    public class CategoryEntity : Entity<int>
     {
         public string? Name { get; }
-        public int CategoryId { get; }
 
         public CategoryEntity(string? name)
         {
@@ -13,7 +12,7 @@
         public CategoryEntity(string? name, int categoryId)
         {
             Name = name;
-            CategoryId = categoryId;
+            Id = categoryId;
         }
     }
 }

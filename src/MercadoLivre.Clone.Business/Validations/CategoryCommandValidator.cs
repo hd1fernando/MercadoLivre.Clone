@@ -7,7 +7,6 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 {
     private readonly ICategoryRepository _categoryRepository;
 
-
     public CategoryCommandValidator(ICategoryRepository categoryRepository)
     {
         CategoryNameIsRequired();
@@ -20,7 +19,7 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
         RuleFor(c => c.Name)
             .MustAsync(async (name, cancellationToken) =>
             {
-                var exist = await _categoryRepository.CategoryAlreadyExistAsync(name ?? string.Empty, cancellationToken);
+                var exist = await _categoryRepository.CategoryAlreadyExistAsync(name!, cancellationToken);
                 return exist == false;
             }).WithMessage("A categoria informada já existe.");
     }

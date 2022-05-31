@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="CommandHandlers\" />
-    <Folder Include="Repository\" />
   </ItemGroup>
 
   <ItemGroup>
