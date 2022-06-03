@@ -5,6 +5,8 @@ using MercadoLivre.Clone.Api.Indentity.Db;
 using MercadoLivre.Clone.Api.Indentity.Entities;
 using MercadoLivre.Clone.Business.Commands;
 using MercadoLivre.Clone.Business.PipelineBehaviors;
+using MercadoLivre.Clone.Business.Repository;
+using MercadoLivre.Clone.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -24,6 +26,11 @@ builder.Services.AddMediatR(typeof(CommandBase).GetTypeInfo().Assembly);
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+
+builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+
 
 // 1
 builder.Services.AddNHibernate(connectionString);

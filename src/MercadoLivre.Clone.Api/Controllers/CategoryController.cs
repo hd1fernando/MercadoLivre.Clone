@@ -21,11 +21,11 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(CategoryViewModel categoryViewModel)
+    public async Task<ActionResult> Create(CategoryViewModel categoryViewModel, CancellationToken cancellationToken)
     {
         var command = _mapper.Map<CategoryCommand>(categoryViewModel);
 
-        await _mediator.Send(command);
+        await _mediator.Send(command, cancellationToken);
 
         return Ok();
     }
