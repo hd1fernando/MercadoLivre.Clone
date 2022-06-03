@@ -9,9 +9,11 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 
     public CategoryCommandValidator(ICategoryRepository categoryRepository)
     {
+        _categoryRepository = categoryRepository;
+
         CategoryNameIsRequired();
         CategoryNameIsUnique();
-        _categoryRepository = categoryRepository;
+
     }
 
     private void CategoryNameIsUnique()
