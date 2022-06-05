@@ -1,5 +1,6 @@
 ﻿using FluentMigrator;
 
+
 namespace MercadoLivre.Clone.Data.Migrations
 {
     [Migration(2022202442, "Criação da tabela Categoria")]
@@ -21,4 +22,4 @@ namespace MercadoLivre.Clone.Data.Migrations
         }
     }
 }
-//  dotnet-fm migrate -a .\MercadoLivre.Clone.Data.Migrations.dll -p SqlServer2016 -o -t local -c "Server=localhost,1433;DataBase=CasaDoCodigoClone;User Id=sa;Password=P@ssword42;Trusted_Connection=false"     --allowDirtyAssemblies
+//  dotnet-fm migrate -a .\MercadoLivre.Clone.Data.Migrations.dll -p SqlServer2016 -o -t local -c "Server=localhost,1433;DataBase=MercadoLivreClone;User Id=sa;Password=P@ssword42;Trusted_Connection=false"     --allowDirtyAssemblies
