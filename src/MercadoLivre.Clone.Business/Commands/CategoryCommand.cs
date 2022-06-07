@@ -4,8 +4,8 @@ namespace MercadoLivre.Clone.Business.Commands
 {
     public class CategoryCommand : CommandBase
     {
-        public string? Name { get; }
-        public int CategoryId { get; }
+        public string? Name { get; set; }
+        public int CategoryId { get; set; }
 
     }
 }

@@ -2,9 +2,9 @@
 
 namespace MercadoLivre.Clone.Api.Mapper;
 
-public class EntityToViewModel : Profile
+public class EntityToViewModelProfile
 {
-    public EntityToViewModel()
+    public EntityToViewModelProfile()
     {
 
     }

@@ -4,9 +4,9 @@ using MercadoLivre.Clone.Business.Commands;
 
 namespace MercadoLivre.Clone.Api.Mapper;
 
-public class ViewModelToCommand : Profile
+public class ViewModelToCommandProfile : Profile
 {
-    public ViewModelToCommand()
+    public ViewModelToCommandProfile()
     {
         CreateMap<CategoryViewModel, CategoryCommand>();
     }

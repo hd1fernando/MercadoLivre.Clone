@@ -6,6 +6,7 @@ using MercadoLivre.Clone.Api.Indentity.Entities;
 using MercadoLivre.Clone.Business.Commands;
 using MercadoLivre.Clone.Business.PipelineBehaviors;
 using MercadoLivre.Clone.Business.Repository;
+using MercadoLivre.Clone.Business.Validations;
 using MercadoLivre.Clone.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // 1
 builder.Services.AddMediatR(typeof(CommandBase).GetTypeInfo().Assembly);
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CategoryCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 
@@ -74,6 +75,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseFluentValidationExceptionHandler();
 
 app.MapControllers();
 

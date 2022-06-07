@@ -2,13 +2,15 @@
 using MercadoLivre.Clone.Business.Entitties;
 
 namespace MercadoLivre.Clone.Data.Mappigins;
-public class CategoryMap : ClassMap<CategoryEntity>
+public class CategoryEntityMap : ClassMap<CategoryEntity>
 {
-    public CategoryMap()
+    public CategoryEntityMap()
     {
         Id(c => c.Id);
         Map(c => c.Name)
             .Unique()
             .Not.Nullable();
+
+        Table("Category");
     }
 }
