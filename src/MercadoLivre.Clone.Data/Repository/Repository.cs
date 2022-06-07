@@ -12,7 +12,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         _session = session;
     }
-    
+
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
         ITransaction transaction = null;
@@ -42,11 +42,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
     }
 
-    public Task<TEntity> FindByIdAsync(TEntity entity, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
@@ -55,5 +50,10 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     public void Dispose()
     {
         _session?.Dispose();
+    }
+
+    public Task<TEntity> FindByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

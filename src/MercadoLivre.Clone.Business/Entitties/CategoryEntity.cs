@@ -3,6 +3,8 @@
 public class CategoryEntity : Entity<int>
 {
     public virtual string? Name { get; }
+    public virtual CategoryEntity? Category { get; }
+
 
     [Obsolete("Apenas para uso do ORM")]
     public CategoryEntity()
@@ -10,14 +12,19 @@ public class CategoryEntity : Entity<int>
 
     }
 
-    public CategoryEntity(string? name)
+    public CategoryEntity(string? name, CategoryEntity? category = null)
     {
         Name = name;
+        Category = category;
     }
 
-    public CategoryEntity(string? name, int categoryId)
+}
+
+public static class Assert
+{
+    public static void IsTrue(bool value, string message)
     {
-        Name = name;
-        Id = categoryId;
+        if (value == false)
+            throw new InvalidOperationException(message);
     }
 }

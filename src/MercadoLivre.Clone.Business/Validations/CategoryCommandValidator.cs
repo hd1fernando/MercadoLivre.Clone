@@ -13,7 +13,22 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 
         CategoryNameIsRequired();
         CategoryNameIsUnique();
+        CategoryParentMustExist();
 
+    }
+
+    private void CategoryParentMustExist()
+    {
+        RuleFor(c => c.CategoryId)
+            .MustAsync(async (id, cancellationToken) =>
+            {
+                if (id == default)
+                    return true;
+
+                var category = await _categoryRepository.FindByIdAsync(id, cancellationToken);
+
+                return category is not null;
+            }).WithMessage("A categoria pai informada não existe.");
     }
 
     private void CategoryNameIsUnique()
