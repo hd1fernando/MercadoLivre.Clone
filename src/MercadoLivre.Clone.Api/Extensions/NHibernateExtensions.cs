@@ -1,7 +1,6 @@
-﻿using NHibernate.Cfg;
-using NHibernate.Dialect;
-using NHibernate.Driver;
-using NHibernate.Mapping.ByCode;
+﻿using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using MercadoLivre.Clone.Data.Mappigins;
 
 namespace MercadoLivre.Clone.Api.Extensions;
 
@@ -9,30 +8,18 @@ public static class NHibernateExtensions
 {
     public static IServiceCollection AddNHibernate(this IServiceCollection service, string connectionString)
     {
-        var mapper = new ModelMapper();
-        mapper.AddMappings(typeof(NHibernateExtensions).Assembly.ExportedTypes);
-        var entityMapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+        var sessionFactory = Fluently.Configure()
+            .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString)
+                .ShowSql()
+                .FormatSql())
+            .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CategoryEntityMap).Assembly))
+            .BuildSessionFactory();
 
-        var configuration = new Configuration();
-        configuration.DataBaseIntegration(c =>
+        service.AddScoped(factory =>
         {
-            c.ConnectionString = connectionString;
-            c.Driver<Sql2008ClientDriver>();
-            c.Dialect<MsSql2008Dialect>();
-            c.LogSqlInConsole = true;
-            c.LogFormattedSql = true;
-            c.AutoCommentSql = true;
-            c.Timeout = 60;
+            return sessionFactory.OpenSession();
         });
-        configuration.SessionFactory().GenerateStatistics();
-        configuration.AddMapping(entityMapping);
-
-        var sessionFactory = configuration.BuildSessionFactory();
-
-        service.AddSingleton(sessionFactory);
-        service.AddScoped(_ => sessionFactory.OpenSession());
 
         return service;
-
     }
 }
