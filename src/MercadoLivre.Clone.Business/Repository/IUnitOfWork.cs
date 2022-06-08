@@ -2,6 +2,6 @@
 
 public interface IUnitOfWork : IDisposable
 {
-    Task Commit();
-    Task Rollback();
+    public Task<bool> Commit(CancellationToken cancellationToken);
+    public Task Rollback(CancellationToken cancellationToken);
 }

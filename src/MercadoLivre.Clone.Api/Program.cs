@@ -11,6 +11,7 @@ using MercadoLivre.Clone.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+
 // CI: 7
 
 
@@ -28,13 +29,13 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddValidatorsFromAssembly(typeof(CategoryCommandValidator).Assembly);
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
-
-builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 // 1
 builder.Services.AddNHibernate(connectionString);
+builder.Services.AddTransient<NHibernateContext>();
 
 // 1
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(

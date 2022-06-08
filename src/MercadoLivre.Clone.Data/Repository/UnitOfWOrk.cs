@@ -1,55 +1,42 @@
-﻿using MercadoLivre.Clone.Business.Entitties;
-using MercadoLivre.Clone.Business.Repository;
-using NHibernate;
-using NHibernate.Linq;
+﻿using MercadoLivre.Clone.Business.Repository;
 
 namespace MercadoLivre.Clone.Data.Repository;
-public class UnitOfWOrk : IUnitOfWork
-{
-    private ISession _session;
-    private ITransaction _transaction;
-    private ISessionFactory _sessionFactory;
 
-    public UnitOfWOrk(ISessionFactory sessionFactory)
+public class UnitOfWork : IUnitOfWork
+{
+    private readonly NHibernateContext _context;
+    public UnitOfWork(NHibernateContext context)
     {
-        _sessionFactory = sessionFactory;
-        _session = _sessionFactory.OpenSession();
-        _transaction = _session.BeginTransaction();
+        context.BeginTransaction();
+        _context = context;
     }
 
-    public async Task Commit()
+    public async Task<bool> Commit(CancellationToken cancellationToken)
     {
-        await _transaction.CommitAsync();
+        var success = false;
+
+        try
+        {
+            await _context.Transaction.CommitAsync(cancellationToken);
+            success = true;
+        }
+        catch (Exception e)
+        {
+            await Rollback(cancellationToken);
+            // TODO: adicionar logs
+
+            success = false;
+        }
+
+        return success;
     }
 
     public void Dispose()
+        => _context?.Dispose();
+
+
+    public async Task Rollback(CancellationToken cancellationToken)
     {
-        _transaction.Dispose();
-        //_transaction = null;
+        await _context.Transaction.RollbackAsync(cancellationToken);
     }
-
-    public async Task Rollback()
-    {
-        await _transaction.RollbackAsync();
-    }
-}
-
-public class CategoryRepository : Repository<CategoryEntity>, ICategoryRepository
-{
-    public CategoryRepository(ISession session) : base(session)
-    {
-    }
-
-    ~CategoryRepository()
-        => Dispose();
-
-    public async Task<bool> CategoryAlreadyExistAsync(string name, CancellationToken cancellationToken)
-    {
-        var result = await _session.Query<CategoryEntity>()
-            .Where(x => x.Name == name)
-            ?.FirstOrDefaultAsync(cancellationToken);
-
-        return result is not null;
-    }
-
 }

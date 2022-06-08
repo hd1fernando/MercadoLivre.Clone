@@ -2,7 +2,7 @@
 
 namespace MercadoLivre.Clone.Business.Repository;
 
-public interface ICategoryRepository : IRepository<CategoryEntity>
+public interface ICategoryRepository : IRepository<CategoryEntity, int>
 {
     public Task<bool> CategoryAlreadyExistAsync(string name, CancellationToken cancellationToken);
 }

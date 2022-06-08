@@ -1,59 +1,49 @@
-﻿using MercadoLivre.Clone.Business.Repository;
-using NHibernate;
+﻿using MercadoLivre.Clone.Business.Entitties;
+using MercadoLivre.Clone.Business.Repository;
+using NHibernate.Linq;
 
 namespace MercadoLivre.Clone.Data.Repository;
 
-public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+public class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
+    where TEntity : Entity<TKey>
+    where TKey : IEquatable<TKey>
 {
 
-    protected ISession _session;
+    protected readonly NHibernateContext Context;
 
-    public Repository(ISession session)
+    public Repository(NHibernateContext context)
     {
-        _session = session;
+        Context = context;
     }
 
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        ITransaction transaction = null;
-        try
-        {
-            transaction = _session.BeginTransaction();
-            await _session.SaveAsync(entity, cancellationToken);
-            await transaction.CommitAsync(cancellationToken);
-        }
-        catch
-        {
-            await transaction?.RollbackAsync(cancellationToken);
-        }
-        finally
-        {
-            transaction?.Dispose();
-        }
+        Context.BeginTransaction();
+        await Context.Session.SaveAsync(entity, cancellationToken);
     }
 
-
     public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
-        => await _session.DeleteAsync(entity);
+    {
+        Context.BeginTransaction();
+        await Context.Session.DeleteAsync(entity, cancellationToken);
+    }
 
     public async Task<IEnumerable<TEntity>> FindAllAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
-
+        Context.BeginTransaction();
+        return await Context.Session.Query<TEntity>().ToListAsync();
     }
 
-    public Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        Context.BeginTransaction();
+        await Context.Session.UpdateAsync(entity, cancellationToken);
     }
 
-    public void Dispose()
+    public async Task<TEntity> FindByIdAsync(TKey id, CancellationToken cancellationToken)
     {
-        _session?.Dispose();
-    }
-
-    public Task<TEntity> FindByIdAsync(int id, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
+        Context.BeginTransaction();
+        return await Context.Session.Query<TEntity>()
+            .FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
     }
 }

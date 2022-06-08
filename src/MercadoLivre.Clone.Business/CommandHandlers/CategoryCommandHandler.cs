@@ -8,10 +8,12 @@ namespace MercadoLivre.Clone.Business.CommandHandlers
     public class CategoryCommandHandler : IRequestHandler<CategoryCommand>
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryCommandHandler(ICategoryRepository categoryRepository)
+        public CategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
         {
             _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Unit> Handle(CategoryCommand request, CancellationToken cancellationToken)
@@ -28,6 +30,7 @@ namespace MercadoLivre.Clone.Business.CommandHandlers
             }
 
             await _categoryRepository.AddAsync(categoryEntity, cancellationToken);
+            await _unitOfWork.Commit(cancellationToken);
 
             return Unit.Value;
         }
