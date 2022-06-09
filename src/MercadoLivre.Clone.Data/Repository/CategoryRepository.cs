@@ -1,24 +1,27 @@
 ﻿using MercadoLivre.Clone.Business.Entitties;
 using MercadoLivre.Clone.Business.Repository;
+using NHibernate;
 using NHibernate.Linq;
 using System.Data;
 
 namespace MercadoLivre.Clone.Data.Repository;
 
-public class CategoryRepository : Repository<CategoryEntity, int>, ICategoryRepository
+public class CategoryRepository :  NHibernateRepository<CategoryEntity, int>, ICategoryRepository
 {
-    public CategoryRepository(NHibernateContext context) : base(context)
+    public CategoryRepository(ISession session) : base(session)
     {
     }
 
-    ~CategoryRepository()
-        => Context.Dispose();
+    //public CategoryRepository(NHibernateContext context) : base(context)
+    //{
+    //}
+
+    //~CategoryRepository()
+    //    => Context.Dispose();
 
     public async Task<bool> CategoryAlreadyExistAsync(string name, CancellationToken cancellationToken)
     {
-        Context.BeginTransaction();
-
-        var result = await Context.Session.Query<CategoryEntity>()
+        var result = await Session.Query<CategoryEntity>()
             .Where(x => x.Name == name)
             ?.FirstOrDefaultAsync(cancellationToken);
 

@@ -14,7 +14,7 @@ public class NHibernateContext : IDisposable
     public NHibernateContext(ISession session)
     {
         _session = session;
-        Transaction = _session.BeginTransaction();
+        //Transaction = _session.BeginTransaction();
     }
 
     public void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
@@ -22,7 +22,7 @@ public class NHibernateContext : IDisposable
         if (Transaction is null || Transaction.IsActive)
         {
             Transaction?.Dispose();
-            _session?.BeginTransaction(isolationLevel);
+            Transaction = _session?.BeginTransaction(isolationLevel);
         }
     }
 
