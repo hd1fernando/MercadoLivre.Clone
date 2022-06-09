@@ -4,7 +4,7 @@
 namespace MercadoLivre.Clone.Data.Migrations
 {
     [Migration(20220609195942, "Criação do campo CategoryId para referenciar uma categoria tabela Category")]
-    public class M020CreateCategoryId : Migration
+    public class M011CreateCategoryId : Migration
     {
         private string TableName = "Category";
 
