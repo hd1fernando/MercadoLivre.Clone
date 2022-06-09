@@ -31,11 +31,10 @@ builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBeh
 
 // 1
 builder.Services.AddNHibernate(connectionString);
-//builder.Services.AddTransient<NHibernateContext>();
 
-builder.Services.AddTransient(typeof(IRepository<,>), typeof(NHibernateRepository<,>));
+builder.Services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
-builder.Services.AddTransient<IUnitOfWork, NHibernateUnitOfWork>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 // 1
 builder.Services.AddDbContext<IdentityUserMercadoLivreContext>(
