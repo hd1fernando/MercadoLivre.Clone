@@ -3,21 +3,22 @@
 
 namespace MercadoLivre.Clone.Data.Migrations
 {
-    [Migration(2022202442, "Criação da tabela Categoria")]
-    public class M010CreateCategoryTable : Migration
+    [Migration(20220609195942, "Criação do campo CategoryId para referenciar uma categoria tabela Category")]
+    public class M020CreateCategoryId : Migration
     {
         private string TableName = "Category";
 
         public override void Down()
         {
-            Delete.Table(TableName);
+            Delete.Column("CategoryId")
+                .FromTable(TableName);
         }
 
         public override void Up()
         {
-            Create.Table(TableName)
-                .WithColumn("Id").AsInt64().PrimaryKey().Identity()
-                .WithColumn("Name").AsString();
+            Alter.Table(TableName)
+                .AddColumn("CategoryId").AsInt64().Nullable()
+                .WithColumnDescription("Id referente a categoria pai");
         }
     }
 

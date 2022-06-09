@@ -8,7 +8,6 @@ public class CategoryEntityMap : ClassMap<CategoryEntity>
     {
         Id(c => c.Id);
         Map(c => c.Name)
-            .Unique()
             .Not.Nullable();
 
         Table("Category");

@@ -33,10 +33,10 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 
     private void CategoryNameIsUnique()
     {
-        RuleFor(c => c.Name)
-            .MustAsync(async (name, cancellationToken) =>
+        RuleFor(categoryCommand => categoryCommand)
+            .MustAsync(async (categoryCommand, cancellationToken) =>
             {
-                var exist = await _categoryRepository.CategoryAlreadyExistAsync(name!, cancellationToken);
+                var exist = await _categoryRepository.CategoryAlreadyExistAsync(categoryCommand.Name!, categoryCommand.CategoryId, cancellationToken);
                 return exist == false;
             }).WithMessage("A categoria informada já existe.");
     }
@@ -44,7 +44,6 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
     private void CategoryNameIsRequired()
     {
         RuleFor(c => c.Name)
-           .NotEmpty().WithMessage("O nome da categoria é obrigatório.")
-           .NotNull().WithMessage("O nome da categoria é obrigatório.");
+           .NotEmpty().WithMessage("O nome da categoria é obrigatório.");
     }
 }
