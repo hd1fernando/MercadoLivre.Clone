@@ -19,14 +19,12 @@ namespace MercadoLivre.Clone.Business.CommandHandlers
         public async Task<Unit> Handle(CategoryCommand request, CancellationToken cancellationToken)
         {
             CategoryEntity categoryEntity = null;
+            categoryEntity = new CategoryEntity(request.Name);
+
             if (request.CategoryId != default)
             {
                 var categoryParent = await _categoryRepository.FindByIdAsync(request.CategoryId, cancellationToken);
-                categoryEntity = new CategoryEntity(request.Name, categoryParent);
-            }
-            else
-            {
-                categoryEntity = new CategoryEntity(request.Name);
+                categoryEntity.AddParent(categoryParent);
             }
 
             await _categoryRepository.AddAsync(categoryEntity, cancellationToken);

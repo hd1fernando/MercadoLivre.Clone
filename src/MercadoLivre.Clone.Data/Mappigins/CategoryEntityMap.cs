@@ -10,6 +10,13 @@ public class CategoryEntityMap : ClassMap<CategoryEntity>
         Map(c => c.Name)
             .Not.Nullable();
 
+        //Map(x => x.Parent)
+        //    .Nullable();
+
+        References(x => x.Parent)
+            .Column("ParentId")
+            .Nullable();
+
         Table("Category");
     }
 }

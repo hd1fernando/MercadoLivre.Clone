@@ -3,7 +3,7 @@
 public class CategoryEntity : Entity<int>
 {
     public virtual string? Name { get; }
-    public virtual CategoryEntity? Category { get; }
+    public virtual CategoryEntity? Parent { get; protected set; }
 
 
     [Obsolete("Apenas para uso do ORM")]
@@ -12,19 +12,16 @@ public class CategoryEntity : Entity<int>
 
     }
 
-    public CategoryEntity(string? name, CategoryEntity? category = null)
+    public CategoryEntity(string? name)
     {
+        Assert.IsTrue(!string.IsNullOrEmpty(name), $"{nameof(name)} é obrigatório.");
         Name = name;
-        Category = category;
     }
 
-}
-
-public static class Assert
-{
-    public static void IsTrue(bool value, string message)
+    public virtual void AddParent(CategoryEntity parent)
     {
-        if (value == false)
-            throw new InvalidOperationException(message);
+        ArgumentNullException.ThrowIfNull(parent, nameof(parent));
+        Parent = parent;
     }
+
 }
