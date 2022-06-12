@@ -18,9 +18,7 @@ namespace MercadoLivre.Clone.Bussiness.Test
         [InlineData(-1)]
         public async void Handler_Dont_Add_CategoryParent_when_CategoryId_is_default(int categoryId)
         {
-            var fakeName = new Faker("pt_BR").Name.ToString();
-
-            var command = new CategoryCommand { Name = fakeName, CategoryId = categoryId };
+            var command = new CategoryCommand { Name = GenerateName(), CategoryId = categoryId };
             var handler = BuildCommandHander();
 
             var result = await handler.Handle(command, default);
@@ -40,11 +38,9 @@ namespace MercadoLivre.Clone.Bussiness.Test
         [Theory(DisplayName = "Adiciona uma categoria pai quando CategoryId é maior do que zero")]
         [InlineData(1)]
         [InlineData(2)]
-        public async void Handler_Add_CategoryParent_when_Cate(int categoryId)
+        public async void Handler_Add_CategoryParent_when_CategoryParent_is_greater_than_zero(int categoryId)
         {
-            var fakeName = new Faker("pt_BR").Name.ToString();
-
-            var command = new CategoryCommand { Name = fakeName, CategoryId = categoryId };
+            var command = new CategoryCommand { Name = GenerateName(), CategoryId = categoryId };
             var handler = BuildCommandHander();
 
             var result = await handler.Handle(command, default);
@@ -61,8 +57,11 @@ namespace MercadoLivre.Clone.Bussiness.Test
                 .Commit(default);
         }
 
+        private string GenerateName()
+         => new Faker("pt_BR").Name.ToString();
+
         private CategoryCommandHandler BuildCommandHander()
-         => new CategoryCommandHandler(CategoryRepository, Uow);
+             => new CategoryCommandHandler(CategoryRepository, Uow);
 
     }
 }
