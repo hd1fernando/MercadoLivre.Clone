@@ -8,6 +8,7 @@ using Xunit;
 
 namespace MercadoLivre.Clone.Bussiness.Test
 {
+
     public class CreateCategoryTest
     {
         ICategoryRepository CategoryRepository = Substitute.For<ICategoryRepository>();
