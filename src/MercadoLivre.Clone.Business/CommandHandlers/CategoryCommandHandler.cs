@@ -25,7 +25,7 @@ public class CategoryCommandHandler : IRequestHandler<CategoryCommand>
         CategoryEntity categoryEntity = new CategoryEntity(request.Name);
 
         // 1
-        if (request.CategoryId != default)
+        if (request.CategoryId > 0)
         {
             var categoryParent = await _categoryRepository.FindByIdAsync(request.CategoryId, cancellationToken);
             categoryEntity.AddParent(categoryParent);
