@@ -1,4 +1,6 @@
-﻿namespace MercadoLivre.Clone.Business.Entitties;
+﻿using MercadoLivre.Clone.Business.Entitties.Validator;
+
+namespace MercadoLivre.Clone.Business.Entitties;
 
 public class CategoryEntity : Entity<int>
 {
@@ -14,6 +16,7 @@ public class CategoryEntity : Entity<int>
 
     public CategoryEntity(string? name)
     {
+        name = name?.Trim();
         Assert.IsTrue(!string.IsNullOrEmpty(name), $"{nameof(name)} é obrigatório.");
         Name = name;
     }
