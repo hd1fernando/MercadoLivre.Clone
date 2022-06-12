@@ -11,11 +11,13 @@ using System.Text;
 
 namespace MercadoLivre.Clone.Api.Controllers;
 
+// CI: 5
 public class LoginController : MainController
 {
     private readonly SignInManager<IdentityUserEntity> _signInManager;
     private readonly AppSettings _appSettings;
 
+    // 2
     public LoginController(SignInManager<IdentityUserEntity> signInManager, IOptions<AppSettings> appSettings)
     {
         _signInManager = signInManager;
@@ -24,16 +26,19 @@ public class LoginController : MainController
 
     [HttpPost]
     [AllowAnonymous]
+    // 1
     public async Task<ActionResult> Login(UserLoginViewModel userLoginViewModel)
     {
         var result = await _signInManager.PasswordSignInAsync(userLoginViewModel.Login, userLoginViewModel.Password, false, true);
 
+        // 1
         if (result.Succeeded)
             return Ok(new
             {
                 Token = GenerateJwt()
             });
 
+        // 1
         if (result.IsLockedOut)
             return BadRequest("Muitas tentativas inválidas. Usuário temporariamente bloqueado.");
 

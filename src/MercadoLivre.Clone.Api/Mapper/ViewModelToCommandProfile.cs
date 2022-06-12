@@ -9,5 +9,6 @@ public class ViewModelToCommandProfile : Profile
     public ViewModelToCommandProfile()
     {
         CreateMap<CategoryViewModel, CategoryCommand>();
+        CreateMap<ProductViewModel, ProductCommand>();
     }
 }
