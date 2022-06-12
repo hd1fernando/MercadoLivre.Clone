@@ -7,7 +7,7 @@ namespace MercadoLivre.Clone.Api.Dtos;
 public class UserViewModel
 {
     [Required(ErrorMessage = "{0} é obrigatório.")]
-    [EmailAddress(ErrorMessage = "{0} deve ser um e-mail válid.")]
+    [EmailAddress(ErrorMessage = "{0} deve ser um e-mail válido.")]
     public string? Login { get; set; }
 
     [Required(ErrorMessage = "{0} é obrigatório")]

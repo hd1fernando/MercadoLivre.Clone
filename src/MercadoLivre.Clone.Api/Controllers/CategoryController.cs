@@ -6,9 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
-public class CategoryController : ControllerBase
+public class CategoryController : MainController
 {
 
     private readonly IMediator _mediator;

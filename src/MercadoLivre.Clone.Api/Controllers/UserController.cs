@@ -1,14 +1,13 @@
 using MercadoLivre.Clone.Api.Dtos;
 using MercadoLivre.Clone.Api.Indentity.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
 
 // CI: 3
-[ApiController]
-[Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UserController : MainController
 {
     // 1
     private readonly UserManager<IdentityUserEntity> _userManager;
@@ -19,6 +18,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
+    [AllowAnonymous]
     // 1
     public async Task<ActionResult> Create(UserViewModel userViewModel)
     {
