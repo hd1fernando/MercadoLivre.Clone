@@ -3,10 +3,14 @@ using MercadoLivre.Clone.Business.Commands;
 using MercadoLivre.Clone.Business.Repository;
 
 namespace MercadoLivre.Clone.Business.Validations;
+
+// CI: 5
+// 1
 public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 {
     private readonly ICategoryRepository _categoryRepository;
 
+    // 1
     public CategoryCommandValidator(ICategoryRepository categoryRepository)
     {
         _categoryRepository = categoryRepository;
@@ -19,10 +23,12 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 
     private void CategoryParentMustExist()
     {
+        // 1
         RuleFor(c => c.CategoryId)
             .MustAsync(async (id, cancellationToken) =>
             {
-                if (id == default)
+                /// 1
+                if (id <= 0)
                     return true;
 
                 var category = await _categoryRepository.FindByIdAsync(id, cancellationToken);
@@ -33,6 +39,7 @@ public class CategoryCommandValidator : AbstractValidator<CategoryCommand>
 
     private void CategoryNameIsUnique()
     {
+        // 1
         RuleFor(categoryCommand => categoryCommand)
             .MustAsync(async (categoryCommand, cancellationToken) =>
             {
