@@ -1,4 +1,5 @@
 ﻿using MercadoLivre.Clone.Business.Entitties.Validator;
+using System.Linq;
 
 namespace MercadoLivre.Clone.Business.Entitties;
 
@@ -12,7 +13,7 @@ public class ProductEntity : Entity<int>
     public CategoryEntity? Category { get; }
     public DateTimeOffset Instant { get; }
 
-    public ProductEntity(string? name, decimal price, int availableQuantity, string? features, string? description, CategoryEntity? category)
+    public ProductEntity(string? name, decimal price, int availableQuantity, List<string?> features, string? description, CategoryEntity? category)
     {
         Assert.IsNotEmpty(name!, $"{nameof(name)} é obrigatório.");
         Assert.IsTrue(price > 0, $"{nameof(price)} deve ser maior do que zero.");
@@ -21,7 +22,7 @@ public class ProductEntity : Entity<int>
         Name = name;
         Price = price;
         AvailableQuantity = availableQuantity;
-        Features = features;
+        Features = string.Join(',', Features);
         Description = description;
         Category = category;
         Instant = DateTimeOffset.Now;

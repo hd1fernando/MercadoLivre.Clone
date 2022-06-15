@@ -44,6 +44,7 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
     private void DescriptionWithMaxOf1000Characters()
     {
         RuleFor(x => x.Description)
+            .NotEmpty().WithMessage("A descrição do produto é obrigatória")
             .MaximumLength(1000).WithMessage("A descrição de um produto não pode ter mais do que {PropertyValue} caracteres");
     }
 
