@@ -1,7 +1,7 @@
-﻿namespace MercadoLivre.Clone.Business.Entitties
+﻿namespace MercadoLivre.Clone.Business.Entitties;
+
+public abstract class Entity<TId>
 {
-    public abstract class Entity<TId>
-    {
-        public virtual TId Id { get; protected set; }
-    }
+    public virtual TId Id { get; protected set; }
 }
+

@@ -1,15 +1,11 @@
 using FluentValidation;
 using MediatR;
 using MercadoLivre.Clone.Api.Extensions;
-using MercadoLivre.Clone.Api.Indentity.Db;
-using MercadoLivre.Clone.Api.Indentity.Entities;
 using MercadoLivre.Clone.Business.Commands;
 using MercadoLivre.Clone.Business.PipelineBehaviors;
 using MercadoLivre.Clone.Business.Repository;
 using MercadoLivre.Clone.Business.Validations;
 using MercadoLivre.Clone.Data.Repository;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 // CI: 7
@@ -33,6 +29,7 @@ builder.Services.AddNHibernate(builder.Configuration);
 
 builder.Services.AddTransient(typeof(IRepository<,>), typeof(Repository<,>));
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
