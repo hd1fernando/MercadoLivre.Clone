@@ -51,7 +51,11 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
     private void AtLeastTreeFeatures()
     {
         RuleFor(x => x.Features)
-            .MinimumLength(3).WithMessage("O produto deve ter no mínimo {PropertyValue} características.");
+            .NotEmpty().WithMessage("Não é possível cadastrar produto sem característica")
+            .Must(x => x.Count() >= 3)
+            .WithMessage("O produto deve conter no mínimo 3 características");
+
+
     }
 
     private void PriceIsGreateThanZero()

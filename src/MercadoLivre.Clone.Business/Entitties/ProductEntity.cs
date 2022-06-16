@@ -5,13 +5,19 @@ namespace MercadoLivre.Clone.Business.Entitties;
 
 public class ProductEntity : Entity<int>
 {
-    public string? Name { get; }
-    public decimal Price { get; }
-    public int AvailableQuantity { get; }
-    public string? Features { get; }
-    public string? Description { get; }
-    public CategoryEntity? Category { get; }
-    public DateTimeOffset Instant { get; }
+    public virtual string? Name { get; protected set; }
+    public virtual decimal Price { get; protected set; }
+    public virtual int AvailableQuantity { get; protected set; }
+    public virtual string? Features { get; protected set; }
+    public virtual string? Description { get; protected set; }
+    public virtual CategoryEntity? Category { get; protected set; }
+    public virtual DateTimeOffset Instant { get; protected set; }
+
+    [Obsolete("Apenas para uso do ORM.")]
+    public ProductEntity()
+    {
+
+    }
 
     public ProductEntity(string? name, decimal price, int availableQuantity, List<string?> features, string? description, CategoryEntity? category)
     {
