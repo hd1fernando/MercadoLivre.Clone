@@ -10,7 +10,7 @@ namespace MercadoLivre.Clone.Data.Migrations
 
         public override void Down()
         {
-            throw new System.NotImplementedException();
+            Delete.Table(TableName);
         }
 
         public override void Up()
