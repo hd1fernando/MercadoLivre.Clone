@@ -13,4 +13,16 @@ internal static class Assert
         if (string.IsNullOrEmpty(value))
             throw new InvalidOperationException(errorMessage);
     }
+
+    public static void Minimun(int length, int min, string errorMessage)
+    {
+        if (length < min)
+            throw new InvalidOperationException(errorMessage);
+    }
+
+    public static void Maximun(int length, int max, string errorMessage)
+    {
+        if (length > max)
+            throw new InvalidOperationException(errorMessage);
+    }
 }

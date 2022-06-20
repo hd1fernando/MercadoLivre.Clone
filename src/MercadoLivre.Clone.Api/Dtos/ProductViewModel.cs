@@ -13,8 +13,8 @@ public class ProductViewModel
     [Range(0, double.MaxValue, ErrorMessage = "{0} deve ser no mínimo {1}")]
     public int AvailableQuantity { get; set; }
 
-    [MinLength(3, ErrorMessage = "{0} deve possuir no mínimo {3} {0}")]
-    public List<string>? Features { get; set; }
+    [MinLength(3, ErrorMessage = "{0} deve possuir no mínimo {1} {0}")]
+    public List<string> Features { get; set; }
 
     [Required(ErrorMessage = "{0} é obrigatória")]
     [MaxLength(1000, ErrorMessage = "{0} deve ter no máximo {1} caracteres")]

@@ -20,7 +20,13 @@ public class ProductCommandHandler : IRequestHandler<ProductCommand>
     public async Task<Unit> Handle(ProductCommand request, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.FindByIdAsync(request.CategoryId, cancellationToken);
-        var product = new ProductEntity(request.Name, request.Price, request.AvailableQuantity, request.Features, request.Description, category);
+        var product = new ProductEntity(
+            request.Name, 
+            request.Price, 
+            request.AvailableQuantity, 
+            request.Features, 
+            request.Description, 
+            category);
 
         await _productRepository.AddAsync(product, cancellationToken);
         await _unitOfWork.Commit(cancellationToken);

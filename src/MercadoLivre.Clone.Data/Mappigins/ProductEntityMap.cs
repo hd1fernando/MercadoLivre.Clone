@@ -22,8 +22,9 @@ public class ProductEntityMap : ClassMap<ProductEntity>
         Map(p => p.Instant)
             .Not.Nullable();
 
-        HasOne(p => p.Category)
-            .ForeignKey("CategoryId");
+        References(p => p.Category)
+            .Column("CategoryId")
+            .ForeignKey("Id");
 
         Table("Product");
     }
