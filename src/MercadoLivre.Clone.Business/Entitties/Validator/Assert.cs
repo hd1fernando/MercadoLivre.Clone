@@ -1,4 +1,7 @@
-﻿namespace MercadoLivre.Clone.Business.Entitties.Validator;
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("MercadoLivre.Clone.Bussiness.Test")]
+namespace MercadoLivre.Clone.Business.Entitties.Validator;
 
 internal static class Assert
 {
@@ -10,7 +13,7 @@ internal static class Assert
 
     public static void IsNotEmpty(string value, string errorMessage)
     {
-        if (string.IsNullOrEmpty(value))
+        if (string.IsNullOrEmpty(value?.Trim()))
             throw new InvalidOperationException(errorMessage);
     }
 
