@@ -2,7 +2,6 @@
 using MercadoLivre.Clone.Business.Entitties;
 using System;
 using Xunit;
-
 namespace MercadoLivre.Clone.Bussiness.Test
 {
     public class CategoryEntityTest
