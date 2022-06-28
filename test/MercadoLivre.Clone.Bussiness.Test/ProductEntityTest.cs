@@ -14,7 +14,7 @@ public class ProductEntityTest
     [InlineData(null)]
     [InlineData("")]
     [InlineData(" ")]
-    public void test(string name)
+    public void ThrowException_when_Name_Is_NullOrEmpty(string name)
     {
         var action = () => new ProductBuild()
             .WithRandomAvailableQuantity()
@@ -29,9 +29,9 @@ public class ProductEntityTest
     }
 
     [Theory(DisplayName = "Lança exception quando preço é menor do que zero")]
-    [InlineData(0)]
-    [InlineData(-1)]
-    public void tests(decimal price)
+    [InlineData(0d)]
+    [InlineData(-1d)]
+    public void ThrowException_When_price_is_less_than_zero(decimal price)
     {
         var action = () => new ProductBuild()
             .WithRandomAvailableQuantity()
