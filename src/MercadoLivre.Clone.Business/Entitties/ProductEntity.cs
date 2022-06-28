@@ -10,6 +10,7 @@ public class ProductEntity : Entity<int>
     public virtual string? Features { get; protected set; }
     public virtual string? Description { get; protected set; }
     public virtual CategoryEntity Category { get; protected set; }
+    public virtual UserEntity Owner { get; protected set; }
     public virtual DateTimeOffset Instant { get; protected set; }
 
     [Obsolete("Apenas para uso do ORM.")]
@@ -18,7 +19,7 @@ public class ProductEntity : Entity<int>
 
     }
 
-    public ProductEntity(string? name, decimal price, int availableQuantity, List<string?> features, string? description, CategoryEntity category)
+    public ProductEntity(string? name, decimal price, int availableQuantity, List<string?> features, string? description, CategoryEntity category, UserEntity owner)
     {
         Assert.IsNotEmpty(name!, $"{nameof(name)} é obrigatório.");
         Assert.IsTrue(price > 0, $"{nameof(price)} deve ser maior do que zero.");
@@ -27,6 +28,7 @@ public class ProductEntity : Entity<int>
         Assert.IsTrue(string.IsNullOrEmpty(description) == false, $"{nameof(description)} é obrigatória");
         Assert.Maximun(description?.Length ?? 0, 1000, $"{nameof(description)} deve ter no máximo 1000 caracteres");
         ArgumentNullException.ThrowIfNull(category, nameof(category));
+        ArgumentNullException.ThrowIfNull(owner, nameof(owner));
 
         Name = name;
         Price = price;
@@ -35,5 +37,6 @@ public class ProductEntity : Entity<int>
         Description = description;
         Category = category;
         Instant = DateTimeOffset.Now;
+        Owner = owner;
     }
 }

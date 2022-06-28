@@ -4,13 +4,14 @@ using MercadoLivre.Clone.Business.Repository;
 
 namespace MercadoLivre.Clone.Business.Validations;
 
-// CI: 3
+// CI: 4
 public class ProductCommandValidator : AbstractValidator<ProductCommand>
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IUserRepository _userRepository;
 
-    // 1
-    public ProductCommandValidator(ICategoryRepository categoryRepository)
+    // 2
+    public ProductCommandValidator(ICategoryRepository categoryRepository, IUserRepository userRepository)
     {
 
         _categoryRepository = categoryRepository;
@@ -21,6 +22,13 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
         AtLeastTreeFeatures();
         DescriptionWithMaxOf1000Characters();
         CategoryIsRequired();
+        CategoryOwnerIsRequired();
+        _userRepository = userRepository;
+    }
+
+    private void CategoryOwnerIsRequired()
+    {
+        
     }
 
     private void AvailableQuantityIsGreaterThanOrEqualZero()

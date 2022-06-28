@@ -26,6 +26,10 @@ public class ProductEntityMap : ClassMap<ProductEntity>
             .Column("CategoryId")
             .ForeignKey("Id");
 
+        References(p => p.Owner)
+            .Column("UserId")
+            .ForeignKey("Id");
+
         Table("Product");
     }
 }
