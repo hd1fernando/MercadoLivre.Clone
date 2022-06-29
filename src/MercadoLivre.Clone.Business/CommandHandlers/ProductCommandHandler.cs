@@ -2,6 +2,7 @@
 using MercadoLivre.Clone.Business.Commands;
 using MercadoLivre.Clone.Business.Entitties;
 using MercadoLivre.Clone.Business.Repository;
+using MercadoLivre.Clone.Business.Users;
 
 namespace MercadoLivre.Clone.Business.CommandHandlers;
 
@@ -12,24 +13,26 @@ public class ProductCommandHandler : IRequestHandler<ProductCommand>
     private readonly IUserRepository _userRepository;
     private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUser User;
 
     // 4
     public ProductCommandHandler(
         IProductRepository productRepository,
         IUnitOfWork unitOfWork,
         ICategoryRepository categoryRepository,
-        IUserRepository userRepository)
+        IUserRepository userRepository, IUser user)
     {
         _productRepository = productRepository;
         _unitOfWork = unitOfWork;
         _categoryRepository = categoryRepository;
         _userRepository = userRepository;
+        User = user;
     }
 
     public async Task<Unit> Handle(ProductCommand request, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.FindByIdAsync(request.CategoryId, cancellationToken);
-        var user = await _userRepository.FindByUserEmailAsync("user@tes3t2.com", cancellationToken);
+        var user = await _userRepository.FindByUserEmailAsync(User.GetUserEmail(), cancellationToken);
 
         var product = new ProductEntity(
             request.Name,
