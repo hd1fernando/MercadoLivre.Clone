@@ -4,7 +4,6 @@ using System.Text;
 using System.Text.Json;
 
 namespace MercadoLivre.Clone.Api.Extensions;
-
 public static class ApplicationBuilderExtensions
 {
     public static void UseFluentValidationExceptionHandler(this IApplicationBuilder app)
