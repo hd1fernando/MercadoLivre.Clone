@@ -8,7 +8,7 @@ public class UserEntityMap : ClassMap<UserEntity>
     public UserEntityMap()
     {
         Id(x => x.Id);
-        Map(x => x.UserEmail)
+        Map(x => x.Email)
             .Not.Nullable();
         Map(x => x.UserName)
             .Not.Nullable();
