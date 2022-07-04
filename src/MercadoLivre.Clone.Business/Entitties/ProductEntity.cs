@@ -33,7 +33,7 @@ public class ProductEntity : Entity<int>
         Name = name;
         Price = price;
         AvailableQuantity = availableQuantity;
-        Features = string.Join(',', features);
+        Features = string.Join(',', features.ToHashSet());
         Description = description;
         Category = category;
         Instant = DateTimeOffset.Now;

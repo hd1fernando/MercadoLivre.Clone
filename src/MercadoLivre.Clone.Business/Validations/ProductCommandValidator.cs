@@ -20,6 +20,7 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
         PriceIsGreateThanZero();
         AvailableQuantityIsGreaterThanOrEqualZero();
         AtLeastTreeFeatures();
+        NonDuplicateFeatures();
         DescriptionWithMaxOf1000Characters();
         CategoryIsRequired();
         CategoryOwnerIsRequired();
@@ -28,7 +29,7 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
 
     private void CategoryOwnerIsRequired()
     {
-        
+
     }
 
     private void AvailableQuantityIsGreaterThanOrEqualZero()
@@ -62,8 +63,17 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
             .NotEmpty().WithMessage("Não é possível cadastrar produto sem característica")
             .Must(x => x.Count() >= 3)
             .WithMessage("O produto deve conter no mínimo 3 características");
+    }
 
+    private void NonDuplicateFeatures()
+    {
+        RuleFor(x => x.Features)
+            .Must((features) =>
+            {
+                var hashSetSize = features?.ToHashSet().Count();
 
+                return hashSetSize == features?.Count();
+            }).WithMessage("Existe características repetidas no produto");
     }
 
     private void PriceIsGreateThanZero()
