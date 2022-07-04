@@ -22,6 +22,7 @@ public class ProductEntityTest
             .WithRandomCategory()
             .WithRandomFeatures()
             .WithRandomPrice()
+            .WithRandomUser()
             .WithName(name)
             .Build();
 
@@ -39,6 +40,7 @@ public class ProductEntityTest
             .WithRandomCategory()
             .WithRandomFeatures()
             .WithRandomName()
+            .WithRandomUser()
             .WithPrice(price)
             .Build();
 
@@ -49,16 +51,30 @@ public class ProductEntityTest
     {
         private Faker Faker = new Faker("pt_BR");
 
-        public string? Name { get; set; }
-        public decimal Price { get; set; }
-        public int AvailableQuantity { get; set; }
-        public List<string>? Features { get; set; }
-        public string? Description { get; set; }
-        public CategoryEntity Category { get; set; }
+        public string? Name { get; private set; }
+        public decimal Price { get; private set; }
+        public int AvailableQuantity { get; private set; }
+        public List<string>? Features { get; private set; }
+        public string? Description { get; private set; }
+        public CategoryEntity Category { get; private set; }
+        public UserEntity User { get; set; }
 
         public ProductEntity Build()
         {
-            return new ProductEntity(Name, Price, AvailableQuantity, Features, Description, Category);
+            return new ProductEntity(Name, Price, AvailableQuantity, Features, Description, Category, User);
+        }
+        public ProductBuild WIthUser(string usernName, string userEmail)
+        {
+            User = new UserEntity(usernName, userEmail);
+            return this;
+        }
+
+        public ProductBuild WithRandomUser()
+        {
+            var userName = Faker.Person.UserName;
+            var userEmail = Faker.Person.Email;
+            User = new UserEntity(userName, userEmail);
+            return this;
         }
 
         public ProductBuild WithRandomName()
