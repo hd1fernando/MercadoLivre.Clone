@@ -1,20 +1,28 @@
 ﻿using FluentValidation;
 using MercadoLivre.Clone.Business.Commands;
 using MercadoLivre.Clone.Business.Repository;
+using MercadoLivre.Clone.Business.Users;
 
 namespace MercadoLivre.Clone.Business.Validations;
 
-// CI: 4
+// CI: 6
 public class ProductCommandValidator : AbstractValidator<ProductCommand>
 {
     private readonly ICategoryRepository _categoryRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly IUser _user;
 
-    // 2
-    public ProductCommandValidator(ICategoryRepository categoryRepository, IUserRepository userRepository)
+    // 4
+    public ProductCommandValidator(
+        ICategoryRepository categoryRepository,
+        IUserRepository userRepository,
+        IProductRepository productRepository,
+        IUser user)
     {
-
         _categoryRepository = categoryRepository;
+        _userRepository = userRepository;
+
 
         NameIsRequired();
         PriceIsGreateThanZero();
@@ -24,7 +32,23 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
         DescriptionWithMaxOf1000Characters();
         CategoryIsRequired();
         CategoryOwnerIsRequired();
-        _userRepository = userRepository;
+        ProductIsUnique();
+        _productRepository = productRepository;
+        _user = user;
+    }
+
+    private void ProductIsUnique()
+    {
+        RuleFor(x => x)
+            .MustAsync(async (product, cancellationToken) =>
+            {
+                var productEntity = await _productRepository.FindBydNameAndCategoryAsync(product?.Name, product.CategoryId, cancellationToken);
+                var owner = await _userRepository.FindByUserEmailAsync(_user.GetUserEmail(),cancellationToken);
+
+
+                return productEntity is not null && owner == productEntity.Owner;
+            }).WithMessage("O produto já esta cadastrado");
+
     }
 
     private void CategoryOwnerIsRequired()

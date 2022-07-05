@@ -9,4 +9,9 @@ public class ProductRepository : Repository<ProductEntity, int>, IProductReposit
     public ProductRepository(ISession session) : base(session)
     {
     }
+
+    public Task<ProductEntity> FindBydNameAndCategoryAsync(string name, int categoryId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

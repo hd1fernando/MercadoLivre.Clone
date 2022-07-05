@@ -13,7 +13,7 @@ public class ProductCommandHandler : IRequestHandler<ProductCommand>
     private readonly IUserRepository _userRepository;
     private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IUser User;
+    private readonly IUser _user;
 
     // 4
     public ProductCommandHandler(
@@ -26,13 +26,13 @@ public class ProductCommandHandler : IRequestHandler<ProductCommand>
         _unitOfWork = unitOfWork;
         _categoryRepository = categoryRepository;
         _userRepository = userRepository;
-        User = user;
+        _user = user;
     }
 
     public async Task<Unit> Handle(ProductCommand request, CancellationToken cancellationToken)
     {
         var category = await _categoryRepository.FindByIdAsync(request.CategoryId, cancellationToken);
-        var user = await _userRepository.FindByUserEmailAsync(User.GetUserEmail(), cancellationToken);
+        var user = await _userRepository.FindByUserEmailAsync(_user.GetUserEmail(), cancellationToken);
 
         var product = new ProductEntity(
             request.Name,
