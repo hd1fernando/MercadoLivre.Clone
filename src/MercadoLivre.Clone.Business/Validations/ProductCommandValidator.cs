@@ -42,12 +42,11 @@ public class ProductCommandValidator : AbstractValidator<ProductCommand>
         RuleFor(x => x)
             .MustAsync(async (product, cancellationToken) =>
             {
-                var productEntity = await _productRepository.FindBydNameAndCategoryAsync(product?.Name, product.CategoryId, cancellationToken);
-                var owner = await _userRepository.FindByUserEmailAsync(_user.GetUserEmail(),cancellationToken);
+                var owner = await _userRepository.FindByUserEmailAsync(_user.GetUserEmail(), cancellationToken);
+                var productEntity = await _productRepository.FindBydNameAndCategoryAsync(product?.Name, product.CategoryId, owner.Id, cancellationToken);
 
-
-                return productEntity is not null && owner == productEntity.Owner;
-            }).WithMessage("O produto já esta cadastrado");
+                return productEntity is null;
+            }).WithMessage("O produto já está cadastrado");
 
     }
 

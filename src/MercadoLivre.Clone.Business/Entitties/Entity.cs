@@ -4,7 +4,7 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>>
 {
     public virtual TId Id { get; protected set; }
 
-    public bool Equals(Entity<TId>? other)
+    public virtual bool Equals(Entity<TId>? other)
     {
         if (ReferenceEquals(null, other))
             return false;
