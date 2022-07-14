@@ -1,5 +1,5 @@
 ﻿using MercadoLivre.Clone.Api.Dtos;
-using MercadoLivre.Clone.Api.Extensions;
+using MercadoLivre.Clone.Api.Extensions.Options;
 using MercadoLivre.Clone.Api.Indentity.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

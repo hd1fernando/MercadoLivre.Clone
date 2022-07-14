@@ -1,5 +1,4 @@
-﻿namespace MercadoLivre.Clone.Api.Extensions;
-
+﻿namespace MercadoLivre.Clone.Api.Extensions.Options;
 public class AppSettings
 {
     /// <summary>

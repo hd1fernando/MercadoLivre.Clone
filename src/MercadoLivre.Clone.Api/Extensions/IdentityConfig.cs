@@ -1,4 +1,5 @@
-﻿using MercadoLivre.Clone.Api.Indentity.Db;
+﻿using MercadoLivre.Clone.Api.Extensions.Options;
+using MercadoLivre.Clone.Api.Indentity.Db;
 using MercadoLivre.Clone.Api.Indentity.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
