@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MercadoLivre.Clone.Api.Dtos;
 
-//[ModelBinder(BinderType = typeof(JsonModelBinder))]
+[ModelBinder(BinderType = typeof(JsonModelBinder))]
 public class ProductImageViewModel
 {
     [Required(ErrorMessage = "{0} é obrigatório")]
