@@ -1,7 +1,9 @@
 using FluentValidation;
 using MediatR;
 using MercadoLivre.Clone.Api.Extensions;
+using MercadoLivre.Clone.Api.Extensions.Options;
 using MercadoLivre.Clone.Business.Commands;
+using MercadoLivre.Clone.Business.Options;
 using MercadoLivre.Clone.Business.PipelineBehaviors;
 using MercadoLivre.Clone.Business.Repository;
 using MercadoLivre.Clone.Business.Users;
@@ -34,6 +36,8 @@ builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+builder.Services.Configure<Images>(builder.Configuration.GetSection("Images"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

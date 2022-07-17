@@ -3,6 +3,7 @@ using System.Text.Json;
 
 namespace MercadoLivre.Clone.Api.Extensions;
 
+// CI: 2
 public class JsonModelBinder : IModelBinder
 {
     public Task BindModelAsync(ModelBindingContext bindingContext)

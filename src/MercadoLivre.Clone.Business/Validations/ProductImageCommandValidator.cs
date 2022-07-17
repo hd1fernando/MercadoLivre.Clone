@@ -5,39 +5,24 @@ using MercadoLivre.Clone.Business.Users;
 
 namespace MercadoLivre.Clone.Business.Validations;
 
+// CI 8
+// 1
 public class ProductImageCommandValidator : AbstractValidator<ProductImageCommand>
 {
     private readonly IUser _user;
     private readonly IUserRepository _userRepository;
     private readonly IProductRepository _productRepository;
 
+    // 3
     public ProductImageCommandValidator(IUser user, IProductRepository productRepository, IUserRepository userRepository)
     {
         _user = user;
         _productRepository = productRepository;
 
         ImageMustExist();
-        FileNameShouldBeUnique();
         ProductIsFromDeLoggedUser();
 
         _userRepository = userRepository;
-    }
-
-    private void FileNameShouldBeUnique()
-    {
-        RuleFor(x => x)
-            .Must(command =>
-            {
-                foreach (var image in command.Images)
-                {
-                    var path = command.UploadPath + image.FileName;
-                    if (System.IO.File.Exists(path))
-                        return false;
-                }
-
-                return true;
-
-            }).WithMessage("Já existe um arquivo com esse nome");
     }
 
     private void ImageMustExist()
@@ -45,8 +30,10 @@ public class ProductImageCommandValidator : AbstractValidator<ProductImageComman
         RuleFor(x => x.Images)
             .Must(images =>
             {
+                /// 1
                 foreach (var image in images)
                 {
+                    //1
                     if (image is null || image.Length == 0)
                         return false;
                 }

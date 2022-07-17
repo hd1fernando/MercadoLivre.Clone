@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
 
+//CI: 3
 public class ProductImageController : MainController
 {
     private readonly IMapper _mapper;
@@ -20,9 +21,10 @@ public class ProductImageController : MainController
 
     [RequestSizeLimit(50000000)]
     [HttpPost]
+    // 2
     public async Task<ActionResult> Update([ModelBinder(typeof(JsonModelBinder))] ProductImageViewModel productImageViewModel, IList<IFormFile> files)
     {
-
+        // 1
         if (files.Any() == false)
         {
             ModelState.AddModelError(string.Empty, "Forneça uma imagem para esse produto");
