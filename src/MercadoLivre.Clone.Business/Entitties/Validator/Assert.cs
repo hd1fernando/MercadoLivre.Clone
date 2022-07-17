@@ -28,4 +28,10 @@ internal static class Assert
         if (length > max)
             throw new InvalidOperationException(errorMessage);
     }
+
+    public static void RangeInclusive(int length, int min, int max, string errorMessage)
+    {
+        if (length < min || length > max)
+            throw new InvalidOperationException(errorMessage);
+    }
 }
