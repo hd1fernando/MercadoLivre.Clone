@@ -13,6 +13,8 @@ public class ProductEntity : Entity<int>
     public virtual UserEntity Owner { get; protected set; }
     public virtual DateTimeOffset Instant { get; protected set; }
 
+
+
     [Obsolete("Apenas para uso do ORM.")]
     public ProductEntity()
     {

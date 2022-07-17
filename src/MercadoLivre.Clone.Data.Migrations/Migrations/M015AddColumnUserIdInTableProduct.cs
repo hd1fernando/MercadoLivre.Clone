@@ -2,6 +2,7 @@
 
 namespace MercadoLivre.Clone.Data.Migrations
 {
+
     [MercadoLivreMigration(20220628203942, "Adição da coluna UserId para referenciar usuário dono do produto.")]
     public class M015AddColumnUserIdInTableProduct : Migration
     {

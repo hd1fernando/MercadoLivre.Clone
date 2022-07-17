@@ -11,8 +11,14 @@ public class ProductImageViewModel
     [Range(1, int.MaxValue, ErrorMessage = "{0} deve ter um valor válido")]
     public int ProductId { get; set; }
 
-    //[Required(ErrorMessage = "{0} é obrigatório.")]
-    //public string? ImageName { get; set; }
+    public List<IFormFile>? Images { get; } = new List<IFormFile>();
 
-    //public IFormFile? Images { get; set; }
+    public void AddImages(IList<IFormFile> images)
+    {
+        ArgumentNullException.ThrowIfNull(images, nameof(images));
+        if (images.Any() == false)
+            throw new ArgumentException("A adição de imagens deve conter imagens");
+
+        Images.AddRange(images);
+    }
 }

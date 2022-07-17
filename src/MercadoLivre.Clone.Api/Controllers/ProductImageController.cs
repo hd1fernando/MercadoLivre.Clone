@@ -1,14 +1,26 @@
-﻿using MercadoLivre.Clone.Api.Dtos;
+﻿using AutoMapper;
+using MediatR;
+using MercadoLivre.Clone.Api.Dtos;
 using MercadoLivre.Clone.Api.Extensions;
+using MercadoLivre.Clone.Business.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
 
 public class ProductImageController : MainController
 {
+    private readonly IMapper _mapper;
+    private readonly IMediator _mediator;
+
+    public ProductImageController(IMapper mapper, IMediator mediator)
+    {
+        _mapper = mapper;
+        _mediator = mediator;
+    }
+
     [RequestSizeLimit(50000000)]
     [HttpPost]
-    public async Task<ActionResult> Update([ModelBinder(typeof(JsonModelBinder))] ProductImageViewModel ProductImageViewModel, IList<IFormFile> files)
+    public async Task<ActionResult> Update([ModelBinder(typeof(JsonModelBinder))] ProductImageViewModel productImageViewModel, IList<IFormFile> files)
     {
 
         if (files.Any() == false)
@@ -17,17 +29,21 @@ public class ProductImageController : MainController
             return BadRequest(ModelState);
         }
 
-        foreach (var file in files)
-        {
-            var prefix = $"{Guid.NewGuid()}_";
-            string imagePath = "wwwroot/app/demo-webapi/src/assests";
-            var path = Path.Combine(Directory.GetCurrentDirectory(), imagePath, prefix + file.FileName);
+        productImageViewModel.AddImages(files);
+        var productImageCommand = _mapper.Map<ProductImageCommand>(productImageViewModel);
+        await _mediator.Send(productImageCommand);
 
-            if (CanUploadFile(file, path) == false)
-                return BadRequest(ModelState);
+        //foreach (var file in files)
+        //{
+        //    var prefix = $"{Guid.NewGuid()}_";
+        //    string imagePath = "wwwroot/app/demo-webapi/src/assests";
+        //    var path = Path.Combine(Directory.GetCurrentDirectory(), imagePath, prefix + file.FileName);
 
-            await UploadIFormFileAsync(file, path);
-        }
+        //    if (CanUploadFile(file, path) == false)
+        //        return BadRequest(ModelState);
+
+        //    await UploadIFormFileAsync(file, path);
+        //}
 
         return Ok();
     }
