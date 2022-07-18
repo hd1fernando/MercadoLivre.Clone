@@ -33,7 +33,7 @@ public class ProductReviewCommandValidator : AbstractValidator<ProductReviewComm
 
     private void DescriptionMaximunCachaters()
     {
-        RuleFor(x => x.Description?.Length ?? 0)
+        RuleFor(x => x.Description.Length)
             .LessThanOrEqualTo(500)
             .WithMessage("A descrição não pode conter mais do que {PropertyValue} caracteres.");
     }

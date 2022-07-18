@@ -4,11 +4,17 @@ namespace MercadoLivre.Clone.Business.Entitties;
 
 public class ProductReviewEntity : Entity<int>
 {
-    public int Rate { get; }
-    public string? Title { get; }
-    public string? Description { get; }
-    public ProductEntity Product { get; }
-    public UserEntity? User { get; }
+    public virtual int Rate { get; }
+    public virtual string? Title { get; }
+    public virtual string? Description { get; }
+    public virtual ProductEntity Product { get; }
+    public virtual UserEntity? User { get; }
+
+    [Obsolete("Apenas para uso do ORM.")]
+    public ProductReviewEntity()
+    {
+
+    }
 
     public ProductReviewEntity(int rate, string? title, string? description, ProductEntity product, UserEntity? user)
     {
