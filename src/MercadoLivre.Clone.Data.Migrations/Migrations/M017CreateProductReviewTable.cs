@@ -2,10 +2,10 @@
 
 namespace MercadoLivre.Clone.Data.Migrations
 {
-    [Migration(20220717215942, "Criação da tabela ProductReview")]
+    [MercadoLivreMigration(20220720195742, "Criação da tabela ProductReview")]
     public class M017CreateProductReviewTable : Migration
     {
-        private string TABLE_NAME = "ProductReiview";
+        private string TABLE_NAME = "ProductReview";
 
         public override void Down()
         {
