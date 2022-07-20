@@ -2,6 +2,8 @@
 
 namespace MercadoLivre.Clone.Data.Migrations
 {
+
+
     [MercadoLivreMigration(20220720195742, "Criação da tabela ProductReview")]
     public class M017CreateProductReviewTable : Migration
     {
