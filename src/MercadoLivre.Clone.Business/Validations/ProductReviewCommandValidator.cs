@@ -1,22 +1,40 @@
 ﻿using FluentValidation;
 using MercadoLivre.Clone.Business.Commands;
+using MercadoLivre.Clone.Business.Entitties;
 using MercadoLivre.Clone.Business.Repository;
+using MercadoLivre.Clone.Business.Users;
 
 namespace MercadoLivre.Clone.Business.Validations;
 
 public class ProductReviewCommandValidator : AbstractValidator<ProductReviewCommand>
 {
     private readonly IProductRepository _productRepository;
+    private readonly IProductReivewRepository _productReivewRepository;
+    private readonly IUser _user;
 
-    public ProductReviewCommandValidator(IProductRepository productRepository)
+    public ProductReviewCommandValidator(IProductRepository productRepository, IProductReivewRepository productReivewRepository, IUser user)
     {
         _productRepository = productRepository;
+        _productReivewRepository = productReivewRepository;
+        _user = user;
 
         RateShulBeInAValidRange();
         TitleIsRequired();
         DescriptionIsRequired();
         DescriptionMaximunCachaters();
         RelatedProductMustExist();
+        ReviewFromUserCantExist();
+    }
+
+    private void ReviewFromUserCantExist()
+    {
+        RuleFor(x => x)
+            .MustAsync(async (command, cancellationToken) =>
+            {
+                var review = await _productReivewRepository.FindByProductIdAndUserAsync(command.ProductId, _user.GetUserEmail(), cancellationToken);
+
+                return review is null;
+            }).WithMessage("Você já avaliou esse produto");
     }
 
     private void RelatedProductMustExist()

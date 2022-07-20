@@ -8,7 +8,7 @@ public class ProductReviewEntity : Entity<int>
     public virtual string? Title { get; }
     public virtual string? Description { get; }
     public virtual ProductEntity Product { get; }
-    public virtual UserEntity? User { get; }
+    public virtual UserEntity User { get; }
 
     [Obsolete("Apenas para uso do ORM.")]
     public ProductReviewEntity()
@@ -16,7 +16,7 @@ public class ProductReviewEntity : Entity<int>
 
     }
 
-    public ProductReviewEntity(int rate, string? title, string? description, ProductEntity product, UserEntity? user)
+    public ProductReviewEntity(int rate, string? title, string? description, ProductEntity product, UserEntity user)
     {
         Assert.RangeInclusive(rate, 1, 5, $"{nameof(rate)} deve estar entre 1 e 5");
         Assert.IsNotEmpty(title!, $"{nameof(title)} é obrigatório.");
