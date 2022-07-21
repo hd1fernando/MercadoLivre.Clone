@@ -2,7 +2,6 @@
 
 namespace MercadoLivre.Clone.Business.Commands
 {
-
     public class ProductCommand : CommandBase
     {
         public string? Name { get; set; }
