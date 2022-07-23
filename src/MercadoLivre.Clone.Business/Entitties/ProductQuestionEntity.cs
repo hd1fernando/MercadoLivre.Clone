@@ -4,15 +4,21 @@ namespace MercadoLivre.Clone.Business.Entitties;
 
 public class ProductQuestionEntity : Entity<int>
 {
-    public string? Title { get; }
-    public DateTimeOffset QuestionDate { get; }
-    public UserEntity User { get; }
-    public ProductEntity Product { get; }
+    public virtual string? Title { get; }
+    public virtual DateTimeOffset QuestionDate { get; }
+    public virtual UserEntity User { get;  }
+    public virtual ProductEntity Product { get; }
+
+    [Obsolete("Apenas para uso do ORM")]
+    public ProductQuestionEntity()
+    {
+
+    }
 
     public ProductQuestionEntity(string? title, UserEntity user, ProductEntity product)
     {
-        Assert.IsNotEmpty(title, $"{nameof(title)} deve conter um valor");
-        ArgumentNullException.ThrowIfNull(user, nameof(user);
+        Assert.IsNotEmpty(title!, $"{nameof(title)} deve conter um valor");
+        ArgumentNullException.ThrowIfNull(user, nameof(user));
         ArgumentNullException.ThrowIfNull(product, nameof(product));
 
         Title = title;

@@ -2,6 +2,7 @@
 
 namespace MercadoLivre.Clone.Data.Migrations
 {
+
     [MercadoLivreMigration(20220720200342, "Correção no tipo da coluna UserId de Int para UniqueIdentifier na tabela ProductReview")]
     public class M018FixUserIdColumnOnProductReviewTable : Migration
     {
@@ -31,3 +32,4 @@ namespace MercadoLivre.Clone.Data.Migrations
     }
 }
 //  dotnet-fm migrate -a .\MercadoLivre.Clone.Data.Migrations.dll -p SqlServer2016 -o -t local -c "Server=localhost,1433;DataBase=MercadoLivreClone;User Id=sa;Password=P@ssword42;Trusted_Connection=false"     --allowDirtyAssemblies
+//  dotnet-fm rollback -a .\MercadoLivre.Clone.Data.Migrations.dll -p SqlServer2016 -o -t local -c "Server=localhost,1433;DataBase=MercadoLivreClone;User Id=sa;Password=P@ssword42;Trusted_Connection=false"     --allowDirtyAssemblies

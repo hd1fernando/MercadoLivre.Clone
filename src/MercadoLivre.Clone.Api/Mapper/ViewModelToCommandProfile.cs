@@ -12,5 +12,6 @@ public class ViewModelToCommandProfile : Profile
         CreateMap<ProductViewModel, ProductCommand>();
         CreateMap<ProductImageViewModel, ProductImageCommand>();
         CreateMap<ProductReviewViewModel, ProductReviewCommand>();
+        CreateMap<ProductQuestionViewModel, ProductQuestionCommand>();
     }
 }

@@ -22,7 +22,7 @@ public class ProductImageController : MainController
     [RequestSizeLimit(50000000)]
     [HttpPost]
     // 2
-    public async Task<ActionResult> Update([ModelBinder(typeof(JsonModelBinder))] ProductImageViewModel productImageViewModel, IList<IFormFile> files)
+    public async Task<ActionResult> Update([ModelBinder(typeof(JsonModelBinder))] ProductImageViewModel productImageViewModel, IList<IFormFile> files, CancellationToken cancellationToken)
     {
         // 1
         if (files.Any() == false)
@@ -33,7 +33,7 @@ public class ProductImageController : MainController
 
         productImageViewModel.AddImages(files);
         var productImageCommand = _mapper.Map<ProductImageCommand>(productImageViewModel);
-        await _mediator.Send(productImageCommand);
+        await _mediator.Send(productImageCommand, cancellationToken);
 
         return Ok();
     }
