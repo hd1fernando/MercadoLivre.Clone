@@ -7,7 +7,8 @@ namespace MercadoLivre.Clone.Business.Notifications.MailNotification
     {
         public Task Handle(ProductQuestionEvent notification, CancellationToken cancellationToken)
         {
-            Console.WriteLine("Enviando email para: {0} com o assunto {1}", notification.MailTo, notification.MailSubject);
+            var productLink = $"https://localhost:7234/api/Product/{notification.ProductId}";
+            Console.WriteLine("Enviando email para: {0} com o assunto {1}\n {2}", notification.MailTo, notification.MailSubject, productLink);
 
             return Task.CompletedTask;
         }

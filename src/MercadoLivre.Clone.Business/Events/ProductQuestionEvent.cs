@@ -6,11 +6,13 @@ namespace MercadoLivre.Clone.Business.Events
     {
         public string? MailTo { get; }
         public string? MailSubject { get; }
+        public string? ProductId { get; }
 
-        public ProductQuestionEvent(string? mailTo, string? mailSubject)
+        public ProductQuestionEvent(string? mailTo, string? mailSubject, string? productId)
         {
             MailTo = mailTo;
             MailSubject = mailSubject;
+            ProductId = productId;
         }
     }
 }

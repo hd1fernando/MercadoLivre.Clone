@@ -46,7 +46,7 @@ public class ProductQuestionCommandHandler : IRequestHandler<ProductQuestionComm
         var mailTo = productOwner.Email;
 
         // 1
-        var mailNotification = new ProductQuestionEvent(mailTo, request.Title);
+        var mailNotification = new ProductQuestionEvent(mailTo, request.Title, request.Productid.ToString());
 
         await _mediator.Publish(mailNotification, cancellationToken);
 
