@@ -37,7 +37,8 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IProductReivewRepository, ProductReivewRepository>();
-
+builder.Services.AddTransient<IProductImageRepository, ProductImageRepository>();
+builder.Services.AddTransient<IProductQuestionRepository, ProductQuestionRepository>();
 
 builder.Services.Configure<Images>(builder.Configuration.GetSection("Images"));
 
