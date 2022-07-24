@@ -23,6 +23,9 @@ public class ProductDetailController : ControllerBase
     {
         var productEntity = await _productRepository.FindByIdAsync(productId, cancellationToken);
 
+        if (productEntity is null)
+            return BadRequest("Produto inexistente");
+
         var productDetail = _mapper.Map<ProductDetailViewModel>(productEntity) ?? throw new NullReferenceException();
 
         return Ok(productDetail);
