@@ -2,6 +2,12 @@
 
 namespace MercadoLivre.Clone.Business.Entitties;
 
+public enum PaymentGateway
+{
+    Paypal,
+    PagSeguro
+}
+
 public class ProductEntity : Entity<int>
 {
     public virtual string? Name { get; protected set; }

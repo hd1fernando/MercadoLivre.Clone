@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace MercadoLivre.Clone.Api.Dtos;
-
 public class ProductViewModel
 {
     [Required(ErrorMessage = "{0} é obrigatório")]

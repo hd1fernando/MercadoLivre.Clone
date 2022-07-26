@@ -5,18 +5,11 @@ using MercadoLivre.Clone.Business.Repository;
 
 namespace MercadoLivre.Clone.Api.Mapper.CustomProfile
 {
-    public class ProductReviewEntityToProductReviewResponseConverter : ITypeConverter<ProductReviewEntity, ProductReviewResponse>
-    {
-        public ProductReviewResponse Convert(ProductReviewEntity source, ProductReviewResponse destination, ResolutionContext context)
-            => new ProductReviewResponse
-            {
-                Description = source.Description,
-                Title = source.Title
-            };
-    }
-
+    // CI: 10
+    // 2
     public class ProductEntityToProductDetailViewModelConverter : ITypeConverter<ProductEntity, ProductDetailViewModel>
     {
+        // 3
         private readonly IProductImageRepository _productImageRepository;
         private readonly IProductQuestionRepository _productQuestionRepository;
         private readonly IProductReivewRepository _productReivewRepository;
@@ -36,11 +29,12 @@ namespace MercadoLivre.Clone.Api.Mapper.CustomProfile
 
         public ProductDetailViewModel Convert(ProductEntity source, ProductDetailViewModel destination, ResolutionContext context)
         {
-
+            // 1
             var productImage = _productImageRepository.FindByProductId(source.Id)?
                 .Select(p => p.Path!)?
                 .ToList() ?? new List<string> { "" };
 
+            // 2
             var productQuestions = _productQuestionRepository.FindByProductId(source.Id)?
                 .OrderBy(p => p.QuestionDate)?
                 .Select(p => p.Title!)?
@@ -48,10 +42,12 @@ namespace MercadoLivre.Clone.Api.Mapper.CustomProfile
 
             var productReviews = _productReivewRepository.FindByProductId(source.Id);
 
+            // 2
             var averageRate = productReviews?.Average(x => x?.Rate) ?? 0.0;
             var rateQuantity = productReviews?.Sum(_ => 1) ?? 0;
 
             var reviews = new List<ProductReviewResponse>();
+            // 1
             foreach (var productReview in productReviews!)
                 reviews.Add(_mapper.Map<ProductReviewResponse>(productReview));
 

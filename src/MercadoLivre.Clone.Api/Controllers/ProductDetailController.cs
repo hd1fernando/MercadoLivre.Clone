@@ -7,6 +7,7 @@ namespace MercadoLivre.Clone.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+// CI: 4
 public class ProductDetailController : ControllerBase
 {
     private readonly IProductRepository _productRepository;
