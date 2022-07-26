@@ -18,14 +18,14 @@ public class ProductPurchaseController : MainController
     }
 
     [HttpPost]
-    public async Task<ActionResult> Payment(ProductPurchaseViewModel productPurchaseViewModel)
+    public async Task<ActionResult> Payment(ProductPurchaseViewModel productPurchaseViewModel, CancellationToken cancellationToken)
     {
         var command = _mapper.Map<ProductPurchaseCommand>(productPurchaseViewModel);
 
-        var id = await _mediator.Send(command);
+        var id = await _mediator.Send(command, cancellationToken);
 
         var url = $"https://mercadolivre/{productPurchaseViewModel.Gateway}/{id}";
-        return Ok(url); 
+        return Ok(url);
     }
 
 }

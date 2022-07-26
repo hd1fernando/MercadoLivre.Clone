@@ -4,9 +4,15 @@ namespace MercadoLivre.Clone.Business.Entitties;
 
 public class ProductPurchaseEntity : Entity<Guid>
 {
-    public ProductEntity? Product { get; }
-    public int Quantity { get; }
-    public PaymentGateway Gateway { get; }
+    public virtual ProductEntity? Product { get; }
+    public virtual int Quantity { get; }
+    public virtual PaymentGateway Gateway { get; }
+
+    [Obsolete("Apenas para uso do ORM.")]
+    public ProductPurchaseEntity()
+    {
+
+    }
 
     public ProductPurchaseEntity(ProductEntity? product, int quantity, PaymentGateway gateway)
     {
@@ -17,6 +23,5 @@ public class ProductPurchaseEntity : Entity<Guid>
         Quantity = quantity;
         Gateway = gateway;
     }
-
 
 }

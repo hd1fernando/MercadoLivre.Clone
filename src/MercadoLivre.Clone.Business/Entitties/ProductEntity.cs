@@ -19,8 +19,6 @@ public class ProductEntity : Entity<int>
     public virtual UserEntity Owner { get; protected set; }
     public virtual DateTimeOffset Instant { get; protected set; }
 
-
-
     [Obsolete("Apenas para uso do ORM.")]
     public ProductEntity()
     {
@@ -46,5 +44,11 @@ public class ProductEntity : Entity<int>
         Category = category;
         Instant = DateTimeOffset.Now;
         Owner = owner;
+    }
+
+    public virtual void SlaughterStock(int quantity)
+    {
+        Assert.RangeInclusive(quantity, 0, AvailableQuantity, $"Tentativa de abater estoque inválida.");
+        AvailableQuantity -= quantity;
     }
 }
