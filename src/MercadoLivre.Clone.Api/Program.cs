@@ -20,6 +20,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+// configure logger
+builder.Host.ConfigureLogging(l =>
+{
+    l.ClearProviders();
+    l.AddConsole();
+});
+
 // 1
 builder.Services.AddMediatR(typeof(CommandBase).GetTypeInfo().Assembly);
 builder.Services.AddAutoMapper(typeof(Program));
@@ -42,9 +49,13 @@ builder.Services.AddTransient<IProductQuestionRepository, ProductQuestionReposit
 
 builder.Services.Configure<Images>(builder.Configuration.GetSection("Images"));
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+
 
 var app = builder.Build();
 

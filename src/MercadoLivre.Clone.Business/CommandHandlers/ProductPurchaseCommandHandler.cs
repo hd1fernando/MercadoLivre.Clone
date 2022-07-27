@@ -14,20 +14,22 @@ public class ProductPurchaseCommandHandler : IRequestHandler<ProductPurchaseComm
     private readonly IRepository<ProductPurchaseEntity, Guid> _productPurchaseRepository;
     private readonly IUserRepository _userRepository;
     private readonly IUser _user;
-
+    private readonly IUnitOfWork _unitOfWork;
 
     public ProductPurchaseCommandHandler(
         IProductRepository productRepository,
         IMediator mediator,
         IRepository<ProductPurchaseEntity, Guid> productPurchaseRepository,
         IUserRepository userRepository,
-        IUser user)
+        IUser user,
+        IUnitOfWork unitOfWork)
     {
         _productRepository = productRepository;
         _mediator = mediator;
         _productPurchaseRepository = productPurchaseRepository;
         _userRepository = userRepository;
         _user = user;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Guid> Handle(ProductPurchaseCommand request, CancellationToken cancellationToken)
@@ -44,6 +46,8 @@ public class ProductPurchaseCommandHandler : IRequestHandler<ProductPurchaseComm
         var @event = new ProductPurchaseEvent(product, userConsumer);
 
         await _mediator.Publish(@event, cancellationToken);
+
+        await _unitOfWork.Commit(cancellationToken);
 
         return productPurchase.Id;
     }

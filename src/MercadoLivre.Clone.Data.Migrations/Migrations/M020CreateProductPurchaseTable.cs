@@ -16,7 +16,7 @@ namespace MercadoLivre.Clone.Data.Migrations
             Create.Table(TABLE_NAME)
                 .WithColumn("Id").AsGuid().PrimaryKey()
                 .WithColumn("Quantity").AsInt64().NotNullable()
-                .WithColumn("Gateway").AsInt16().NotNullable()
+                .WithColumn("Gateway").AsAnsiString().NotNullable()
                 .WithColumn("ProductId").AsInt64().NotNullable().ForeignKey();
 
             Create.ForeignKey()

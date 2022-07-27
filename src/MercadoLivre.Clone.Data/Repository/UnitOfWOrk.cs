@@ -1,4 +1,5 @@
 ﻿using MercadoLivre.Clone.Business.Repository;
+using Microsoft.Extensions.Logging;
 using NHibernate;
 
 namespace MercadoLivre.Clone.Data.Repository;
@@ -7,11 +8,13 @@ public class UnitOfWork : IUnitOfWork
 {
     public ISession Session { get; private set; }
     private ITransaction _transaction;
+    private readonly ILogger _logger;
 
-    public UnitOfWork(ISession session)
+    public UnitOfWork(ISession session, ILogger<UnitOfWork> logger)
     {
         Session = session;
         _transaction = Session.BeginTransaction();
+        _logger = logger;
     }
 
     public async Task<bool> Commit(CancellationToken cancellationToken)
@@ -25,8 +28,9 @@ public class UnitOfWork : IUnitOfWork
         }
         catch (Exception e)
         {
+            _logger.LogError(e.Message);
+
             await Rollback(cancellationToken);
-            // TODO: adicionar logs
 
             success = false;
         }
@@ -39,6 +43,6 @@ public class UnitOfWork : IUnitOfWork
 
     public async Task Rollback(CancellationToken cancellationToken)
     {
-        await _transaction.RollbackAsync(cancellationToken);
+        await _transaction?.RollbackAsync(cancellationToken);
     }
 }
