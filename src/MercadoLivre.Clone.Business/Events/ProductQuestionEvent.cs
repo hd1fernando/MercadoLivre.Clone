@@ -2,6 +2,7 @@
 
 namespace MercadoLivre.Clone.Business.Events
 {
+
     public class ProductQuestionEvent : INotification
     {
         public string? MailTo { get; }

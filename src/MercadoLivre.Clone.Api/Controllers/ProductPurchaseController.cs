@@ -2,6 +2,7 @@
 using MediatR;
 using MercadoLivre.Clone.Api.Dtos;
 using MercadoLivre.Clone.Business.Commands;
+using MercadoLivre.Clone.Business.Entitties;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MercadoLivre.Clone.Api.Controllers;
@@ -24,7 +25,13 @@ public class ProductPurchaseController : MainController
 
         var id = await _mediator.Send(command, cancellationToken);
 
-        var url = $"https://mercadolivre/{productPurchaseViewModel.Gateway}/{id}";
+        var url = string.Empty;
+        var returnUrl = "";
+        if (productPurchaseViewModel.Gateway == PaymentGateway.Paypal)
+            url = $"paypal.com/{id}?redirectUrl={returnUrl}";
+        else
+            url = $"pagseguro.com?returnId={id}&redirectUrl={returnUrl}";
+
         return Ok(url);
     }
 
